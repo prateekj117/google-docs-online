@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="text-center">
+        <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="200" height="80">
+    </div>
+    <div style="color: #181d4b;" align="center">
+        <p>Navigus Assignment</p>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+        {% endif %}
+    </div>
+{% endblock content %}

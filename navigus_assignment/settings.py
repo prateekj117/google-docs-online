@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'presence',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,8 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'navigus_assignment/templates'),
-            os.path.join(BASE_DIR, 'authentication/templates')
+            os.path.join(BASE_DIR, 'authentication/templates'),
+            os.path.join(BASE_DIR, 'presence/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {

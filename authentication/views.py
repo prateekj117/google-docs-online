@@ -10,12 +10,19 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            email = form.cleaned_data.get('email')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(email=email, password=raw_password)
+            login(request, user)
+            return redirect("presence")
         else:
             context['registration_form'] = form
     else:
-        form = RegistrationForm()
-        context['registration_form'] = form
+        if request.user.is_authenticated:
+            return redirect("presence")
+        else:
+            form = RegistrationForm()
+            context['registration_form'] = form
 
     return render(request, 'register.html', context)
 
@@ -25,7 +32,7 @@ def login_view(request):
 
     user = request.user
     if user.is_authenticated:
-        return redirect("home")
+        return redirect("presence")
 
     if request.POST:
         form = UserAuthenticationForm(request.POST)
@@ -36,7 +43,7 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                return redirect("home")
+                return redirect("presence")
 
     else:
         form = UserAuthenticationForm()
