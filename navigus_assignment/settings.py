@@ -54,7 +54,7 @@ ROOT_URLCONF = 'navigus_assignment.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'navigus_assignment/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

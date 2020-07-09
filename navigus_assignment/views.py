@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'navigus_assignment/home.html')
+    return render(request, 'home.html')
