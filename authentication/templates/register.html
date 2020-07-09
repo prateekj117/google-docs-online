@@ -1,9 +1,49 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
+
+<style type="text/css">
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin input{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+
+<form class="form-signin" method="post">{% csrf_token %}
     <div class="text-center">
-        Register Page
+        <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="200" height="80">
     </div>
+    <div style="color: #181d4b;" align="center">
+      <p>Navigus Assignment</p>
+    </div>
+
+    <h1 class="h3 mb-3 font-weight-normal text-center">Register an account</h1>
+
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
+    <input type="text" name="first_name" id="inputFirst_name" class="form-control" placeholder="First Name" required>
+    <input type="text" name="last_name" id="inputLast_name" class="form-control" placeholder="Last Name" required>
+    <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
+
+    {% for field in registration_form %}
+        <p>
+        {% for error in field.errors %}
+            <p style="color: #ff0000;">{{error}}</p>
+        {% endfor %}
+        </p>
+    {% endfor %}
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+</form>
 {% endblock content %}
