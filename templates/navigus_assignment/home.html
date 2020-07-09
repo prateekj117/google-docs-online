@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="text-center">
+        <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="300">
+        <h1 class="display-4" style="color: #181d4b;" >Navigus Assignment</h1>
+        <p class="lead"> </p>
+        <br>
+        <p class="lead">Assignment given by Navigus to track the active users on a particular page</p>
+        <a class="btn btn-primary" href="{% url 'home' %}"> Login </a>
+        <a class="btn btn-primary" href="{% url 'home' %}"> Register </a>
+    </div>
+{% endblock content %}
