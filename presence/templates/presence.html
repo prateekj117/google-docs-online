@@ -11,16 +11,31 @@
             padding: 15px;
             margin: auto;
         }
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: -15px;
+            border-style: solid;
+            border-width: medium;
+            border-color: white;
+        }
     </style>
     <div class="text-center">
         <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="200" height="80">
     </div>
     <div style="color: #181d4b;" align="center">
         <p>Navigus Assignment</p>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-        {% endif %}
+        <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
+        <p>Here is a list of all people viewing this document/page:</p>
     </div>
+    <div align="center">
+        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
+        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
+        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
+    </div>
+    <br>
     <a href="{% url 'logout' %}">
         <button class="btn btn-lg btn-primary btn-block">Logout</button>
     </a>
