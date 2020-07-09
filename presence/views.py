@@ -6,7 +6,11 @@ from django.shortcuts import render, redirect
 def presence(request):
     if request.user.is_authenticated:
         avatar_url = gravatar(request.user)
-        return render(request, 'presence.html', {'avatar_url': avatar_url})
+        return render(request, 'presence.html', {'avatar_url': avatar_url,
+                                                 'username': request.user.username,
+                                                 'email': request.user.email,
+                                                 'name': request.user.first_name + ' ' + request.user.last_name
+                                                 })
     else:
         return redirect("home")
 

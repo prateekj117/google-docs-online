@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-
     <style>
         button {
             width: 100%;
@@ -39,4 +38,12 @@
     <a href="{% url 'logout' %}">
         <button class="btn btn-lg btn-primary btn-block">Logout</button>
     </a>
+
+    <script>
+        tippy('.avatar', {
+            content: "Name: {{ name }}<br>Username: {{ username }}<br>Email: {{ email }}",
+            allowHTML: true,
+            animation: 'scale',
+        });
+    </script>
 {% endblock content %}
