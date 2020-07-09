@@ -3,6 +3,15 @@
 {% load static %}
 
 {% block content %}
+
+    <style>
+        button {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
     <div class="text-center">
         <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="200" height="80">
     </div>
@@ -12,4 +21,7 @@
             <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
         {% endif %}
     </div>
+    <a href="{% url 'logout' %}">
+        <button class="btn btn-lg btn-primary btn-block">Logout</button>
+    </a>
 {% endblock content %}
