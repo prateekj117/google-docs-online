@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -143,5 +145,21 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             'hosts': [('localhost', 6379)],
         },
+    }
+}
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+CELERY_IMPORTS = ['channels_presence.tasks']
+
+CELERY_BEAT_SCHEDULE = {
+    'prune-presence': {
+        'task': 'channels_presence.tasks.prune_presence',
+        'schedule': timedelta(seconds=60)
+    },
+    'prune-rooms': {
+        'task': 'channels_presence.tasks.prune_rooms',
+        'schedule': timedelta(seconds=600)
     }
 }

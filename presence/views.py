@@ -36,5 +36,6 @@ class CheckPresence(WebsocketConsumer):
         print(Room.objects.all())
 
     def receive(self, text_data=None, bytes_data=None):
-        Presence.objects.touch(self.channel_name)
+        if text_data == '"heartbeat"':
+            Presence.objects.touch(self.channel_name)
         print(Room.objects.all())
