@@ -40,7 +40,7 @@ python manage.py createsuperuser
 cp navigus_assignment/.env.example navigus_assignment/.env
 ```
 
-* **Step 3** - Run Server.
+* **Step 4** - Run Server.
 
 ```sh
 python manage.py runserver
