@@ -29,10 +29,7 @@
         <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
         <p>Here is a list of all people viewing this document/page:</p>
     </div>
-    <div align="center">
-        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
-        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
-        <img src="{{ avatar_url }}" alt="Avatar" class="avatar">
+    <div align="center" id="online">
     </div>
     <br>
     <a href="{% url 'logout' %}">
@@ -40,12 +37,6 @@
     </a>
 
     <script>
-        tippy('.avatar', {
-            content: "Name: {{ name }}<br>Username: {{ username }}<br>Email: {{ email }}",
-            allowHTML: true,
-            animation: 'scale',
-        });
-
         function connect() {
             var ws = new WebSocket('ws://localhost:8000/connect/');
             ws.onopen = function() {
@@ -57,7 +48,17 @@
             }, 10000);
 
             ws.onmessage = function(e) {
-                console.log('Message:', e.data);
+                console.log('Message:', e.data, typeof e.data);
+                json_data = JSON.parse(e.data)
+                $("#online").empty()
+                json_data.forEach(function(user_info) {
+                    $("#online").append("<img src='" + user_info.avatar_url + "' alt='Avatar' class='avatar' id='" + user_info.username + "'>")
+                    tippy("#" + user_info.username, {
+                        content: "Name: " + user_info.name + "<br>Username: " + user_info.username + "<br>Email: " + user_info.email,
+                        allowHTML: true,
+                        animation: 'scale',
+                    });
+                })
             };
 
             ws.onclose = function(e) {

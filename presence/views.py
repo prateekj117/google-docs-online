@@ -1,19 +1,22 @@
 import hashlib
+import json
 
-from django.shortcuts import render, redirect
-
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from channels.generic.websocket import WebsocketConsumer
 from channels_presence.models import Room, Presence
+from channels_presence.signals import presence_changed
+from django.dispatch import receiver
+from django.shortcuts import render, redirect
+
+
+channel_layer = get_channel_layer()
 
 
 def presence(request):
     if request.user.is_authenticated:
         avatar_url = gravatar(request.user)
-        return render(request, 'presence.html', {'avatar_url': avatar_url,
-                                                 'username': request.user.username,
-                                                 'email': request.user.email,
-                                                 'name': request.user.first_name + ' ' + request.user.last_name
-                                                 })
+        return render(request, 'presence.html')
     else:
         return redirect("home")
 
@@ -42,3 +45,31 @@ class CheckPresence(WebsocketConsumer):
             print(text_data)
             Presence.objects.touch(self.channel_name)
         print(Room.objects.all())
+
+    def forward_message(self, event):
+        """
+        Utility handler for messages to be broadcasted to groups.  Will be
+        called from channel layer messages with `"type": "forward.message"`.
+        """
+        self.send(event["message"])
+
+
+@receiver(presence_changed)
+def broadcast_presence(sender, room, **kwargs):
+
+    users_info = []
+
+    for user in room.get_users():
+
+        user_info = {
+            'avatar_url': gravatar(user), 'name': user.first_name + ' ' + user.last_name,
+            'username': user.username, 'email': user.email
+        }
+        users_info.append(user_info)
+
+    channel_layer_message = {
+       "type": "forward.message",
+       "message": json.dumps(users_info)
+    }
+
+    async_to_sync(channel_layer.group_send)(room.channel_name, channel_layer_message)
