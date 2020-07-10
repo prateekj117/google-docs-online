@@ -45,13 +45,14 @@
 
     <script>
         function connect() {
-            var ws = new WebSocket('ws://localhost:8000/connect/');
+            const protocol = (location.protocol === 'https:' ? 'wss' : 'ws') + '://';
+            const ws = new WebSocket(protocol + location.host + '/connect/');
             ws.onopen = function() {
                 console.log('WebSockets connection created.');
             };
 
             setInterval(function() {
-                ws.send(JSON.stringify("heartbeat"));
+                ws.send("heartbeat");
             }, 10000);
 
             ws.onmessage = function(e) {
