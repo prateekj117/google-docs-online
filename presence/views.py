@@ -27,15 +27,18 @@ def gravatar(user, size=50, default='identicon', rating='g'):
 class CheckPresence(WebsocketConsumer):
 
     def connect(self):
+        print('connect')
         super().connect()
         Room.objects.add("viewing_docs", self.channel_name, self.scope["user"])
         print(Room.objects.all())
 
     def disconnect(self, close_code):
+        print('Disconnect')
         Room.objects.remove("viewing_docs", self.channel_name)
         print(Room.objects.all())
 
     def receive(self, text_data=None, bytes_data=None):
         if text_data == '"heartbeat"':
+            print(text_data)
             Presence.objects.touch(self.channel_name)
         print(Room.objects.all())
