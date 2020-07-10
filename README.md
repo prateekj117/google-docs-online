@@ -13,6 +13,7 @@ Link to deployed demo: https://navigus-assignment-prateek.herokuapp.com/
 Make sure you have the dependencies mentioned above installed before proceeding further.
 
 * **Step 0** - Clone the repository and ```cd ``` into the directory.
+
 ```sh
 git clone git@github.com:prateekj117/navigus_assignment.git
 cd navigus_assignment
@@ -26,7 +27,6 @@ virtualenv -p python3.8 venv
 python -m pip install -r requirements.txt
 ```
 
-
 * **Step 2** - Run Migrations and Create Super User.
 
 ```sh
@@ -34,10 +34,22 @@ python manage.py migarte
 python manage.py createsuperuser
 ```
 
+* **Step 3** - Copy environment variables.
+
+```sh
+cp navigus_assignment/.env.example navigus_assignment/.env
+```
+
 * **Step 3** - Run Server.
 
 ```sh
 python manage.py runserver
+```
+
+* Run Unit Tests:
+
+```sh
+python manage.py test
 ```
 
 #### Requirements explained and Methodology:
