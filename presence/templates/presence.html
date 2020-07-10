@@ -31,6 +31,13 @@
     </div>
     <div align="center" id="online">
     </div>
+    <div align="center">
+        {% for user_email in users_last_seen %}
+            <h6>
+               {{ user_email }}
+            </h6>
+        {% endfor %}
+    </div>
     <br>
     <a href="{% url 'logout' %}">
         <button class="btn btn-lg btn-primary btn-block">Logout</button>
@@ -49,7 +56,7 @@
 
             ws.onmessage = function(e) {
                 console.log('Message:', e.data, typeof e.data);
-                json_data = JSON.parse(e.data)
+                var json_data = JSON.parse(e.data)
                 $("#online").empty()
                 json_data.forEach(function(user_info) {
                     $("#online").append("<img src='" + user_info.avatar_url + "' alt='Avatar' class='avatar' id='" + user_info.username + "'>")

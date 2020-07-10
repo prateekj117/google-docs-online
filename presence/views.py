@@ -9,14 +9,22 @@ from channels_presence.signals import presence_changed
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 
+from authentication.models import User
+
 
 channel_layer = get_channel_layer()
 
 
 def presence(request):
     if request.user.is_authenticated:
-        avatar_url = gravatar(request.user)
-        return render(request, 'presence.html')
+        users = User.objects.all()
+        data = []
+        for user in users:
+            user_last_seen = {
+                user.email: user.last_login
+            }
+            data.append(user_last_seen)
+        return render(request, 'presence.html', {'users_last_seen': data})
     else:
         return redirect("home")
 
