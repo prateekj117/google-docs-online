@@ -49,6 +49,7 @@ python manage.py runserver
 * Run Unit Tests:
 
 ```sh
+python manage.py collectstatic
 python manage.py test
 ```
 
