@@ -1,6 +1,7 @@
-
 .idea
 
 db.sqlite3
 
 venv
+
+navigus_assignment/.env
