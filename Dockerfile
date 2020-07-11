@@ -16,8 +16,8 @@ COPY . /var/app
 
 WORKDIR /var/app
 
-RUN python manage.py migrate
-
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver"]
+RUN chmod +x start.sh
+
+ENTRYPOINT ["./start.sh"]
