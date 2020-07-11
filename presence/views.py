@@ -21,7 +21,8 @@ def presence(request):
         data = []
         for user in users:
             user_last_seen = {
-                user.email: user.last_login
+                'email': user.email,
+                'last_seen': user.last_login
             }
             data.append(user_last_seen)
         return render(request, 'presence.html', {'users_last_seen': data})

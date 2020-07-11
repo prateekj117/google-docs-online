@@ -27,14 +27,17 @@
     <div style="color: #181d4b;" align="center">
         <p>Navigus Assignment</p>
         <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
-        <p>Here is a list of all people viewing this document/page:</p>
+        <p>Here is a list of users currently viewing this document/page:</p>
     </div>
     <div align="center" id="online">
     </div>
+    <h5 align="center">
+        List of all users who have Logged into this page and their last seen:
+    </h5>
     <div align="center">
-        {% for user_email in users_last_seen %}
+        {% for element in users_last_seen %}
             <h6>
-               {{ user_email }}
+               {{ element.email }} : {{ element.last_seen }}
             </h6>
         {% endfor %}
     </div>
