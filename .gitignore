@@ -5,3 +5,7 @@ db.sqlite3
 venv
 
 navigus_assignment/.env
+
+celerybeat-schedule
+
+staticfiles
